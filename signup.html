@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ขั้นตอนสมัคร Trading Psychology Core Set และ Guided Set สำหรับสมาชิกรอบพิเศษ">
+  <title>ขั้นตอนการสมัคร — จิตวิทยาการเทรด ฉบับลงมือทำ</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body class="signup-body">
+  <header class="site-header signup-header">
+    <a class="brand" href="index.html" aria-label="กลับหน้ารายละเอียดผลิตภัณฑ์">
+      <span class="brand-mark">TP</span>
+      <span><strong>Trading Psychology</strong><small>MEMBER REGISTRATION</small></span>
+    </a>
+    <nav aria-label="เมนูหน้าสมัคร">
+      <a href="#package">เลือกแพ็กเกจ</a>
+      <a href="#payment">โอนเงิน</a>
+      <a href="#confirm">ยืนยันการสมัคร</a>
+    </nav>
+    <a class="button compact secondary" href="index.html">← กลับหน้ารายละเอียด</a>
+  </header>
+
+  <main>
+    <section class="signup-hero section-shell narrow">
+      <p class="eyebrow">MEMBER PRE-LAUNCH</p>
+      <h1>ขั้นตอนการสมัคร</h1>
+      <p>ทำตาม 3 ขั้นตอนสั้น ๆ เลือกแพ็กเกจและโอนเงิน กรอกแบบฟอร์ม แล้วส่งสลิปพร้อม Email ทาง LINE OA</p>
+      <div class="signup-progress" aria-label="สามขั้นตอนการสมัคร">
+        <span><b>1</b> โอนเงิน</span>
+        <span><b>2</b> กรอก Form</span>
+        <span><b>3</b> ส่งสลิป</span>
+      </div>
+    </section>
+
+    <section id="package" class="signup-section section-shell narrow">
+      <div class="signup-section-heading">
+        <span class="signup-step-number">01</span>
+        <div><p class="section-tag">SELECT PACKAGE</p><h2>เลือกแพ็กเกจที่ต้องการ</h2><p>หากมาจากปุ่ม Core หรือ Guided ในหน้าก่อน ระบบจะเลือกไว้ให้แล้ว คุณสามารถเปลี่ยนได้ก่อนโอนเงิน</p></div>
+      </div>
+
+      <div class="signup-package-grid" role="group" aria-label="เลือกแพ็กเกจ">
+        <button class="signup-package-option" type="button" data-package-option="core" aria-pressed="false">
+          <span class="package-option-top"><b>CORE SET</b><small>ฝึกด้วยตัวเอง</small></span>
+          <strong>690 <small>บาท</small></strong>
+          <span>eBook + Workbook + Web App พร้อม Dashboard</span>
+          <i>เลือก Core Set</i>
+        </button>
+        <button class="signup-package-option guided" type="button" data-package-option="guided" aria-pressed="false">
+          <span class="package-option-top"><b>GUIDED SET</b><small>มีเครื่องมือพาฝึกต่อเนื่อง</small></span>
+          <strong>1,290 <small>บาท</small></strong>
+          <span>ทุกอย่างใน Core Set + MyGPT + Audio Book + โปรแกรม 30 วัน</span>
+          <i>เลือก Guided Set</i>
+        </button>
+      </div>
+      <p class="selection-message" data-selection-message>กรุณาเลือกแพ็กเกจก่อนดำเนินการต่อ</p>
+    </section>
+
+    <section id="payment" class="signup-section section-shell narrow">
+      <div class="signup-section-heading">
+        <span class="signup-step-number">02</span>
+        <div><p class="section-tag">PAYMENT</p><h2>โอนเงินตามยอดที่แสดง</h2><p>ตรวจชื่อบัญชีและจำนวนเงินให้ตรงกับแพ็กเกจก่อนยืนยันรายการ</p></div>
+      </div>
+
+      <div class="payment-panel">
+        <div class="payment-summary">
+          <small>แพ็กเกจที่เลือก</small>
+          <strong data-selected-package>ยังไม่ได้เลือกแพ็กเกจ</strong>
+          <span data-selected-amount>—</span>
+        </div>
+        <div class="bank-details">
+          <p class="bank-name"><span>KTB</span><strong>ธนาคารกรุงไทย</strong></p>
+          <dl>
+            <div><dt>เลขบัญชี</dt><dd><strong>195-0-21780-9</strong><button type="button" data-copy="1950217809">คัดลอก</button></dd></div>
+            <div><dt>ชื่อบัญชี</dt><dd>นายธนภัทร ธนิชานนท์</dd></div>
+            <div><dt>ยอดที่ต้องโอน</dt><dd><strong data-payment-amount>กรุณาเลือกแพ็กเกจ</strong><button type="button" data-copy-amount disabled>คัดลอกยอด</button></dd></div>
+          </dl>
+          <p class="copy-feedback" data-copy-feedback aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="confirm" class="signup-section section-shell narrow">
+      <div class="signup-section-heading">
+        <span class="signup-step-number">03</span>
+        <div><p class="section-tag">CONFIRM REGISTRATION</p><h2>ยืนยันข้อมูลและส่งสลิป</h2><p>ข้อมูลใน Form เป็นข้อมูลหลัก ส่วน LINE OA ใช้ส่งเพียงสลิปและ Email สำหรับจับคู่รายการ</p></div>
+      </div>
+
+      <div class="confirmation-grid">
+        <article class="confirmation-card form-card">
+          <span>1</span>
+          <h3>กรอกแบบฟอร์ม</h3>
+          <p>กรอกชื่อ Email และเลือกแพ็กเกจให้ตรงกับยอดที่โอน ผู้ซื้อ Guided Set กรุณาระบุบัญชี Facebook ที่จะใช้เข้ากลุ่ม</p>
+          <p class="selected-reminder" data-form-reminder>เลือกแพ็กเกจด้านบนก่อนเปิดแบบฟอร์ม</p>
+          <a class="button primary full disabled-link" href="https://forms.gle/ihzm1ck9Z9KhVomq6" target="_blank" rel="noopener" data-requires-package aria-disabled="true">เปิดแบบฟอร์มยืนยัน <span>↗</span></a>
+        </article>
+
+        <article class="confirmation-card line-card">
+          <span>2</span>
+          <h3>ส่งสลิปทาง LINE OA</h3>
+          <p>หลังกรอกแบบฟอร์มแล้ว ส่งรูปสลิปพร้อมแจ้งเพียง Email เดียวกับที่ใช้สมัคร ไม่ต้องแจ้งชื่อและแพ็กเกจซ้ำ</p>
+          <div class="line-message-template"><small>ข้อความตัวอย่าง</small><code>Email ที่ใช้สมัคร: example@email.com</code></div>
+          <a class="button secondary full disabled-link" href="https://lin.ee/P0GWM4J" target="_blank" rel="noopener" data-requires-package aria-disabled="true">เปิด LINE OA เพื่อส่งสลิป <span>↗</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="delivery-panel section-shell narrow">
+      <div><p class="section-tag">DELIVERY</p><h2>กำหนดส่งมอบ</h2></div>
+      <div class="signup-delivery-grid">
+        <article><strong>ภายใน 3 ก.ย. 2569</strong><p>ส่ง eBook, Workbook และ Trade Journal Web App พร้อม Dashboard ให้ผู้ซื้อทั้งสองแพ็กเกจทาง Email</p></article>
+        <article><strong>ภายใน 30 ก.ย. 2569</strong><p>ส่ง MyGPT, Audio Book และสิทธิ์เข้ากลุ่มปิดสำหรับผู้ซื้อ Guided Set</p></article>
+        <article><strong>1–30 ต.ค. 2569</strong><p>ลงคลิปโปรแกรม 30 วัน วันละหนึ่งคลิปในกลุ่ม Facebook แบบปิด</p></article>
+      </div>
+      <p class="email-reminder">หากยังไม่พบ Email ในวันส่งมอบ โปรดตรวจสอบกล่อง Junk, Spam และ Promotions</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">TP</span><span><strong>Trading Psychology</strong><small>ฉบับลงมือทำ</small></span></div>
+    <p>หากมีคำถามเกี่ยวกับการสมัคร ติดต่อ LINE OA: <a href="https://lin.ee/P0GWM4J" target="_blank" rel="noopener">lin.ee/P0GWM4J</a></p>
+    <p>© 2026 ธนภัทร ธนิชานนท์</p>
+  </footer>
+
+  <script src="signup.js"></script>
+</body>
+</html>
