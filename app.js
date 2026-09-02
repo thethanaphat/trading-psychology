@@ -43,6 +43,22 @@ document.querySelectorAll("[data-lightbox]").forEach((trigger) => {
   });
 });
 
+document.querySelectorAll("[data-youtube-id]").forEach((container) => {
+  const trigger = container.querySelector(".video-poster");
+  if (!trigger) return;
+
+  trigger.addEventListener("click", () => {
+    const videoId = container.dataset.youtubeId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0`;
+    iframe.title = "วิดีโอแนะนำการใช้งาน PTM Journal";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allowFullscreen = true;
+    trigger.replaceWith(iframe);
+  });
+});
+
 lightbox.querySelector(".lightbox-close").addEventListener("click", () => lightbox.close());
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) lightbox.close();
