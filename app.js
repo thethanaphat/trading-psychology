@@ -1,13 +1,13 @@
 const ORDER_PAGE_URL = "signup.html";
 
-const PROMOTION_END = new Date("2026-09-03T23:59:59+07:00");
+const PROMOTION_END = new Date("2026-09-13T23:59:59+07:00");
 
 function updateCountdown() {
   const remaining = PROMOTION_END.getTime() - Date.now();
   const targets = document.querySelectorAll("[data-countdown]");
 
   if (remaining <= 0) {
-    targets.forEach((target) => { target.textContent = "โปรโมชั่นราคาสมาชิกสิ้นสุดแล้ว"; });
+    targets.forEach((target) => { target.textContent = "ราคาเปิดตัวสิ้นสุดแล้ว"; });
     return;
   }
 

@@ -1,6 +1,6 @@
 const PACKAGES = {
-  core: { label: "Core Set", amount: 690 },
-  guided: { label: "Guided Set", amount: 1290 },
+  core: { label: "Core Set", amount: 790 },
+  guided: { label: "Guided Set", amount: 1490 },
 };
 
 const packageOptions = document.querySelectorAll("[data-package-option]");
@@ -12,6 +12,7 @@ const formReminder = document.querySelector("[data-form-reminder]");
 const copyAmountButton = document.querySelector("[data-copy-amount]");
 const gatedLinks = document.querySelectorAll("[data-requires-package]");
 const copyFeedback = document.querySelector("[data-copy-feedback]");
+const formLink = document.querySelector("[data-form-link]");
 
 let currentPackage = null;
 
@@ -79,6 +80,14 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
 
 copyAmountButton.addEventListener("click", () => {
   if (currentPackage) copyText(String(PACKAGES[currentPackage].amount));
+});
+
+formLink?.addEventListener("click", () => {
+  if (typeof window.fbq !== "function" || !currentPackage) return;
+
+  window.fbq("trackCustom", "OpenRegistrationForm", {
+    package_name: PACKAGES[currentPackage].label,
+  });
 });
 
 const initialPackage = new URLSearchParams(window.location.search).get("package");
