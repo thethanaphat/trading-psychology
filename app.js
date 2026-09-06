@@ -2,6 +2,10 @@ const ORDER_PAGE_URL = "signup.html";
 
 const PROMOTION_END = new Date("2026-09-13T23:59:59+07:00");
 
+function trackEvent(name, parameters = {}) {
+  if (typeof window.gtag === "function") window.gtag("event", name, parameters);
+}
+
 function updateCountdown() {
   const remaining = PROMOTION_END.getTime() - Date.now();
   const targets = document.querySelectorAll("[data-countdown]");
@@ -23,6 +27,7 @@ function openOrderPage(event) {
   const packageName = event.currentTarget.dataset.package;
   const target = new URL(ORDER_PAGE_URL, window.location.href);
   if (packageName) target.searchParams.set("package", packageName);
+  trackEvent("signup_click", { package_name: packageName || "unspecified" });
   window.location.href = target.href;
 }
 

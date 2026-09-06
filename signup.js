@@ -13,8 +13,13 @@ const copyAmountButton = document.querySelector("[data-copy-amount]");
 const gatedLinks = document.querySelectorAll("[data-requires-package]");
 const copyFeedback = document.querySelector("[data-copy-feedback]");
 const formLink = document.querySelector("[data-form-link]");
+const lineLink = document.querySelector("[data-line-link]");
 
 let currentPackage = null;
+
+function trackEvent(name, parameters = {}) {
+  if (typeof window.gtag === "function") window.gtag("event", name, parameters);
+}
 
 function formatAmount(amount) {
   return new Intl.NumberFormat("th-TH").format(amount);
@@ -23,6 +28,8 @@ function formatAmount(amount) {
 function choosePackage(packageKey, shouldScroll = false) {
   const details = PACKAGES[packageKey];
   if (!details) return;
+
+  if (shouldScroll) trackEvent("package_select", { package_name: details.label });
 
   currentPackage = packageKey;
   packageOptions.forEach((option) => {
@@ -83,11 +90,22 @@ copyAmountButton.addEventListener("click", () => {
 });
 
 formLink?.addEventListener("click", () => {
-  if (typeof window.fbq !== "function" || !currentPackage) return;
+  if (!currentPackage) return;
 
-  window.fbq("trackCustom", "OpenRegistrationForm", {
+  trackEvent("open_registration_form", {
     package_name: PACKAGES[currentPackage].label,
   });
+
+  if (typeof window.fbq === "function") {
+    window.fbq("trackCustom", "OpenRegistrationForm", {
+      package_name: PACKAGES[currentPackage].label,
+    });
+  }
+});
+
+lineLink?.addEventListener("click", () => {
+  if (!currentPackage) return;
+  trackEvent("open_line_oa", { package_name: PACKAGES[currentPackage].label });
 });
 
 const initialPackage = new URLSearchParams(window.location.search).get("package");
