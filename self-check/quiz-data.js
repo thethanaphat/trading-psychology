@@ -1,9 +1,16 @@
 /* Content and editorial scoring rules. No answers leave this page. */
 globalThis.SelfCheckData = {
   "config": {
-    "version": "1.2.2",
+    "version": "1.3.0",
     "productUrl": "https://trading.thanaphatacademy.com/",
     "analyticsEnabled": true,
+    "offer": {
+      "label": "ราคาเปิดตัว เริ่มต้นที่",
+      "price": 790,
+      "currency": "บาท",
+      "deadline": "ถึง 13 ก.ย. นี้",
+      "endsAt": "2026-09-13T23:59:59+07:00"
+    },
     "utmKeys": [
       "utm_source",
       "utm_medium",

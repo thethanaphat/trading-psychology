@@ -95,6 +95,18 @@
     track('SelfCheckComplete');
     mount(`<section class="reveal-page page-width"><p class="eyebrow">มาดูกันว่าคำตอบบอกอะไร</p><h1 tabindex="-1">คุณเดินครบเส้นทางแล้ว</h1><p class="lead">ผ่านครบทั้ง 6 ช่วงแล้ว<br>ลองเปิดดูว่ามีเรื่องไหนน่าสังเกตบ้าง</p>${chest()}<button class="primary" data-action="reveal">เปิดดูเส้นทางของฉัน <span aria-hidden="true">✧</span></button><p class="soft-note">คำตอบครั้งนี้ไม่ได้บอกว่าคุณจะเป็นแบบนี้ตลอดไป</p><button class="text-button" data-action="back">← ย้อนดูคำตอบ</button></section>`);
   }
+  function productHeading(status) {
+    if (status === 'balanced') return 'รักษาสิ่งที่ทำได้ดี<br>ด้วยระบบที่ช่วยให้ทำต่อเนื่อง';
+    if (status === 'insufficient') return 'เริ่มเก็บข้อมูลจากการเทรดจริง<br>แล้วค่อยกลับมาดูรูปแบบของตัวเอง';
+    if (status === 'partial') return 'เริ่มเห็นบางจุดแล้ว<br>ลองเก็บข้อมูลจริงให้ชัดขึ้น';
+    return 'เห็นจุดที่ควรระวังแล้ว<br>ขั้นต่อไปคือรู้ให้ทันตอนเทรดจริง';
+  }
+  function activeOffer() {
+    const offer = config.offer;
+    if (!offer || !offer.endsAt || Date.now() > Date.parse(offer.endsAt)) return '';
+    const price = new Intl.NumberFormat('th-TH').format(offer.price);
+    return `<p class="offer-note"><span>${escape(offer.label)}</span><strong>${escape(price)} ${escape(offer.currency)}</strong><small>${escape(offer.deadline)}</small></p>`;
+  }
   function result() {
     screen = 'result';
     const r = evaluate(answers);
@@ -166,12 +178,18 @@
           </details>
         </section>
         <section class="product-card">
-          <div class="product-art"><img class="real-cover" src="assets/ebook-cover.png" width="1055" height="1491" loading="lazy" alt="ปกหนังสือ จิตวิทยาการเทรด ฉบับลงมือทำ"><span class="product-art-note">เข้าใจ · วางแผน · ลงมือทำ</span></div>
-          <div><p class="eyebrow">ลองต่อด้วยการเทรดจริง</p>
-            <h2>${r.status==='insufficient'?'เริ่มจากจด<br>สิ่งที่เกิดขึ้นสักหนึ่งไม้':'เริ่มเห็นแล้ว<br>ลองจดไว้ดูตอนเทรดจริง'}</h2>
-            <p>วันนี้เราตอบจากความทรงจำ ครั้งหน้าลองจดไว้ว่าเกิดอะไรขึ้น รู้สึกยังไง และทำอะไรต่อ จะได้กลับมาดูว่าเป็นแบบเดิมอีกไหม</p>
-            <p>ชุด <strong>จิตวิทยาการเทรด ฉบับลงมือทำ</strong> ช่วยให้ทำต่อได้ง่ายขึ้น มี eBook ให้อ่านทำความเข้าใจ Workbook ช่วยวางแผน และ PTM Journal — Trading Psychology Edition สำหรับจดและทบทวนการเทรด</p>
-            <a class="primary" id="product-link" data-action="product" href="${escape(productUrl(location.href))}" referrerpolicy="no-referrer">ดูรายละเอียดชุดจิตวิทยาการเทรด <span aria-hidden="true">↗</span></a>
+          <div class="product-art product-suite">
+            <figure class="suite-screen"><img src="assets/dashboard-demo.png" width="1600" height="1200" loading="lazy" alt="ตัวอย่าง Dashboard ของ PTM Journal"><figcaption>PTM Journal</figcaption></figure>
+            <figure class="suite-cover suite-ebook"><img src="assets/ebook-cover.png" width="1055" height="1491" loading="lazy" alt="ปก eBook จิตวิทยาการเทรด ฉบับลงมือทำ"><figcaption>eBook</figcaption></figure>
+            <figure class="suite-cover suite-workbook"><img src="assets/workbook-cover-full.png" width="793" height="1122" loading="lazy" alt="ปก Workbook จิตวิทยาการเทรด"><figcaption>Workbook</figcaption></figure>
+            <p class="product-art-note">เข้าใจ · วางแผน · ลงมือทำ</p>
+          </div>
+          <div class="product-copy"><p class="eyebrow">ต่อจากผล Self-Check</p>
+            <h2>${productHeading(r.status)}</h2>
+            <p>ผลครั้งนี้ช่วยให้เห็นจุดที่ควรสังเกตคร่าว ๆ ขั้นต่อไปคือลองจับจังหวะนั้นให้ได้ตอนเทรดจริง แล้วจดไว้ดูว่ามันเกิดซ้ำเมื่อไร</p>
+            <p>ชุด <strong>จิตวิทยาการเทรด ฉบับลงมือทำ</strong> รวม eBook, Workbook และ PTM Journal — Trading Psychology Edition เพื่อช่วยให้คุณเข้าใจพฤติกรรม วางกฎไว้ล่วงหน้า และกลับมาดูว่าทำตามแผนจริงแค่ไหน</p>
+            ${activeOffer()}
+            <a class="primary" id="product-link" data-action="product" href="${escape(productUrl(location.href))}" referrerpolicy="no-referrer">ดูเครื่องมือสำหรับฝึกต่อจากผลนี้ <span aria-hidden="true">↗</span></a>
           </div>
         </section>
         <div class="result-actions"><button class="text-button" data-action="review">← กลับไปดูคำตอบ</button><button class="text-button" data-action="restart">ลองทำใหม่ ↻</button></div>
