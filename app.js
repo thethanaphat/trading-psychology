@@ -35,6 +35,19 @@ document.querySelectorAll("[data-order-button]").forEach((button) => {
   button.addEventListener("click", openOrderPage);
 });
 
+document.querySelectorAll("[data-self-check-link]").forEach((link) => {
+  if (window.location.protocol === "file:") {
+    link.href = new URL("self-check/index.html", window.location.href).href;
+  }
+  link.addEventListener("click", () => {
+    const placement = link.dataset.placement || "unspecified";
+    trackEvent("self_check_entry_click", { placement });
+    if (typeof window.fbq === "function") {
+      window.fbq("trackCustom", "SelfCheckEntryClick", { placement });
+    }
+  });
+});
+
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = lightbox.querySelector("img");
 const lightboxCaption = lightbox.querySelector("figcaption");
