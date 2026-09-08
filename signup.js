@@ -16,6 +16,8 @@ const TRACKING_KEYS = [
   "adset_id",
   "ad_id",
   "fbclid",
+  "fbp",
+  "fbc",
 ];
 
 const packageOptions = document.querySelectorAll("[data-package-option]");
@@ -81,8 +83,8 @@ function collectAttribution() {
     values[key] = fromUrl || safeSessionGet(`tp_checkout_${key}`);
   });
 
-  values.fbp = readCookie("_fbp");
-  values.fbc = readCookie("_fbc");
+  values.fbp = values.fbp || readCookie("_fbp");
+  values.fbc = values.fbc || readCookie("_fbc");
   return values;
 }
 

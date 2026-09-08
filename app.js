@@ -1,9 +1,30 @@
 const ORDER_PAGE_URL = "signup.html";
+const ATTRIBUTION_KEYS = [
+  "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+  "placement", "campaign_id", "adset_id", "ad_id", "fbclid", "fbp", "fbc",
+];
 
 const PROMOTION_END = new Date("2026-09-13T23:59:59+07:00");
 
 function trackEvent(name, parameters = {}) {
   if (typeof window.gtag === "function") window.gtag("event", name, parameters);
+}
+
+function readTrackingCookie(name) {
+  const prefix = `${name}=`;
+  const item = document.cookie.split(";").map((part) => part.trim()).find((part) => part.startsWith(prefix));
+  return item ? decodeURIComponent(item.slice(prefix.length)) : "";
+}
+
+function carryTracking(target) {
+  const result = new URL(target, window.location.href);
+  const source = new URL(window.location.href);
+  ATTRIBUTION_KEYS.forEach((key) => {
+    const cookieValue = key === "fbp" ? readTrackingCookie("_fbp") : key === "fbc" ? readTrackingCookie("_fbc") : "";
+    const value = source.searchParams.get(key) || cookieValue;
+    if (value) result.searchParams.set(key, value);
+  });
+  return result;
 }
 
 function updateCountdown() {
@@ -25,7 +46,7 @@ function updateCountdown() {
 
 function openOrderPage(event) {
   const packageName = event.currentTarget.dataset.package;
-  const target = new URL(ORDER_PAGE_URL, window.location.href);
+  const target = carryTracking(ORDER_PAGE_URL);
   if (packageName) target.searchParams.set("package", packageName);
   trackEvent("signup_click", { package_name: packageName || "unspecified" });
   window.location.href = target.href;
@@ -40,6 +61,7 @@ document.querySelectorAll("[data-self-check-link]").forEach((link) => {
     link.href = new URL("self-check/index.html", window.location.href).href;
   }
   link.addEventListener("click", () => {
+    link.href = carryTracking(link.href).href;
     const placement = link.dataset.placement || "unspecified";
     trackEvent("self_check_entry_click", { placement });
     if (typeof window.fbq === "function") {
