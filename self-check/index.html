@@ -28,13 +28,41 @@
       });
     };
   </script>
+  <!-- Meta Pixel Code: use the same Pixel as the Sales LP. -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '936259682502763');
+    fbq('track', 'PageView');
+    window.selfCheckMeta = function(detail) {
+      const eventNames = {
+        SelfCheckStart: 'SelfCheckStart',
+        SelfCheckComplete: 'SelfCheckComplete',
+        SelfCheckProductClick: 'OfferClick'
+      };
+      const eventName = eventNames[detail.name];
+      if (!eventName) return;
+      fbq('trackCustom', eventName, {
+        content_name: 'Trading Psychology Self-Check',
+        tool_version: detail.version
+      });
+    };
+  </script>
+  <!-- End Meta Pixel Code -->
   <link rel="icon" href="assets/compass.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20260907-3">
-  <script defer src="quiz-data.js?v=20260907-2"></script>
-  <script defer src="scoring.js?v=20260907-1"></script>
-  <script defer src="app.js?v=20260907-5"></script>
+  <script defer src="quiz-data.js?v=20260908-1"></script>
+  <script defer src="scoring.js?v=20260908-1"></script>
+  <script defer src="app.js?v=20260908-1"></script>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=936259682502763&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
   <a class="skip-link" href="#main">ข้ามไปเนื้อหา</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Trading Psychology Self-Check หน้าเริ่มต้น"><img src="assets/compass.svg" width="36" height="36" alt=""><span>TRADING PSYCHOLOGY<small>SELF-CHECK</small></span></a>

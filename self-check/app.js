@@ -16,7 +16,19 @@
     try {
       window.dispatchEvent(new CustomEvent('selfcheck:analytics', { detail }));
       if (config.analyticsEnabled && typeof window.selfCheckAnalytics === 'function') window.selfCheckAnalytics(detail);
+      if (config.analyticsEnabled && typeof window.selfCheckMeta === 'function') window.selfCheckMeta(detail);
     } catch { /* Analytics must never interrupt the journey. */ }
+  }
+  function readCookie(name) {
+    const prefix = `${name}=`;
+    const item = document.cookie.split(';').map(part => part.trim()).find(part => part.startsWith(prefix));
+    return item ? decodeURIComponent(item.slice(prefix.length)) : '';
+  }
+  function offerUrl() {
+    return productUrl(location.href, config.productUrl, {
+      fbp: readCookie('_fbp'),
+      fbc: readCookie('_fbc')
+    });
   }
   function mount(html, focus = true) {
     main.innerHTML = html;
@@ -92,7 +104,6 @@
   }
   function gate() {
     screen = 'gate';
-    track('SelfCheckComplete');
     mount(`<section class="reveal-page page-width"><p class="eyebrow">มาดูกันว่าคำตอบบอกอะไร</p><h1 tabindex="-1">คุณเดินครบเส้นทางแล้ว</h1><p class="lead">ผ่านครบทั้ง 6 ช่วงแล้ว<br>ลองเปิดดูว่ามีเรื่องไหนน่าสังเกตบ้าง</p>${chest()}<button class="primary" data-action="reveal">เปิดดูเส้นทางของฉัน <span aria-hidden="true">✧</span></button><p class="soft-note">คำตอบครั้งนี้ไม่ได้บอกว่าคุณจะเป็นแบบนี้ตลอดไป</p><button class="text-button" data-action="back">← ย้อนดูคำตอบ</button></section>`);
   }
   function productHeading(status) {
@@ -189,12 +200,13 @@
             <p>ผลครั้งนี้ช่วยให้เห็นจุดที่ควรสังเกตคร่าว ๆ ขั้นต่อไปคือลองจับจังหวะนั้นให้ได้ตอนเทรดจริง แล้วจดไว้ดูว่ามันเกิดซ้ำเมื่อไร</p>
             <p>ชุด <strong>จิตวิทยาการเทรด ฉบับลงมือทำ</strong> รวม eBook, Workbook และ PTM Journal — Trading Psychology Edition เพื่อช่วยให้คุณเข้าใจพฤติกรรม วางกฎไว้ล่วงหน้า และกลับมาดูว่าทำตามแผนจริงแค่ไหน</p>
             ${activeOffer()}
-            <a class="primary" id="product-link" data-action="product" href="${escape(productUrl(location.href))}" referrerpolicy="no-referrer">ดูเครื่องมือสำหรับฝึกต่อจากผลนี้ <span aria-hidden="true">↗</span></a>
+            <a class="primary" id="product-link" data-action="product" href="${escape(offerUrl())}" referrerpolicy="no-referrer">ดูเครื่องมือสำหรับฝึกต่อจากผลนี้ <span aria-hidden="true">↗</span></a>
           </div>
         </section>
         <div class="result-actions"><button class="text-button" data-action="review">← กลับไปดูคำตอบ</button><button class="text-button" data-action="restart">ลองทำใหม่ ↻</button></div>
         <p class="privacy">เครื่องมือนี้ไม่ใช่การวินิจฉัยด้านสุขภาพจิตหรือคำแนะนำการลงทุน</p>
       </section>`);
+    track('SelfCheckComplete');
     track('SelfCheckResultView');
   }
   function advance() {
@@ -230,7 +242,7 @@
       case 'restart':
         if (window.confirm('เริ่มใหม่เลยไหม? คำตอบและผลครั้งนี้จะหายไป')) { answers={}; index=0; sent=new Set(); intro(); }
         break;
-      case 'product': track('SelfCheckProductClick',false); break;
+      case 'product': track('SelfCheckProductClick'); break;
     }
   });
   // Keep UTM and current answers when returning to the intro via the brand.

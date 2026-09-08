@@ -68,11 +68,11 @@
     const body = status === 'watch' ? mainDimension.copy : status === 'specific' ? 'มีคำตอบที่บอกว่าเคยทำต่างจากแผน แม้จะไม่ได้เป็นแบบนั้นทุกข้อ ลองย้อนดูว่าตอนนั้นเกิดอะไรขึ้น' : config.resultCopy[`${status}Body`];
     return { scores, status, title, body, watch, strengths, specificStrength, tied, focus, answered: answered.length, stageResults, observe: status === 'balanced' ? 'อะไรช่วยให้คุณทำตามแผนได้ในครั้งนี้ ลองจดไว้ใช้ในครั้งหน้าดีไหม?' : status === 'insufficient' ? config.genericObserve : focus?.choice.observe || focus?.q.observe || config.genericObserve };
   }
-  function productUrl(incoming, target = config.productUrl) {
+  function productUrl(incoming, target = config.productUrl, supplemental = {}) {
     const url = new URL(target);
     const source = new URL(incoming);
-    config.utmKeys.forEach(key => {
-      const value = source.searchParams.get(key);
+    (config.trackingKeys || config.utmKeys).forEach(key => {
+      const value = source.searchParams.get(key) || supplemental[key];
       if (value) url.searchParams.set(key, value);
     });
     return url.href;

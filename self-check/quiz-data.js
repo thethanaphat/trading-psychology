@@ -1,7 +1,7 @@
 /* Content and editorial scoring rules. No answers leave this page. */
 globalThis.SelfCheckData = {
   "config": {
-    "version": "1.3.0",
+    "version": "1.4.0",
     "productUrl": "https://trading.thanaphatacademy.com/",
     "analyticsEnabled": true,
     "offer": {
@@ -11,12 +11,19 @@ globalThis.SelfCheckData = {
       "deadline": "ถึง 13 ก.ย. นี้",
       "endsAt": "2026-09-13T23:59:59+07:00"
     },
-    "utmKeys": [
+    "trackingKeys": [
       "utm_source",
       "utm_medium",
       "utm_campaign",
       "utm_content",
-      "utm_term"
+      "utm_term",
+      "placement",
+      "campaign_id",
+      "adset_id",
+      "ad_id",
+      "fbclid",
+      "fbp",
+      "fbc"
     ],
     "thresholds": {
       "watch": 50,
